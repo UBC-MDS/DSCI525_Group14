@@ -1,7 +1,7 @@
 # DSCI 525 Group14
 UBC MDS Web and Cloud Computing Course
 
-[[Source](https://github.ubc.ca/MDS-2020-21/DSCI_525_web-cloud-comp_students/blob/master/milestone1.md)] 
+[Source](https://github.ubc.ca/MDS-2020-21/DSCI_525_web-cloud-comp_students/blob/master/milestone1.md)
 
 ![photo](http://www.bom.gov.au/gms/IDE00135.202104030630.jpg)
 
@@ -11,6 +11,8 @@ There are four milestones for this project:
 
 ## Milestone 1
 Download the data and perform simple EDA
+
+[Milestone 1 Notebook](https://github.com/UBC-MDS/DSCI525_Group14/blob/main/notebooks/milestone_1.ipynb)
 
 ## Milestone 2
 TBD
