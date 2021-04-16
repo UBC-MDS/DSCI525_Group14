@@ -1,7 +1,8 @@
 # DSCI 525 Group14
 UBC MDS Web and Cloud Computing Course
 
-[Source](https://github.ubc.ca/MDS-2020-21/DSCI_525_web-cloud-comp_students/blob/master/milestone1.md)
+[Source](https://github.ubc.ca/MDS-2020-21/DSCI_525_web-cloud-comp_students/tree/master/Milestones)
+
 
 ![photo](http://www.bom.gov.au/gms/IDE00135.202104030630.jpg)
 
