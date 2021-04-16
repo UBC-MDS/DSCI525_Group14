@@ -14456,8 +14456,6 @@ sudo -E pip install s3fs</code></pre>
 <span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="c1">#!sudo -E pip install s3fs</span>
-<span class="c1">#!sudo -E pip install pyarrow</span>
 <span class="kn">import</span> <span class="nn">pyarrow</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
@@ -14738,9 +14736,9 @@ syd_lon = 151.21</code></pre>
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Passing your credentials </span>
 <span class="c1">## IMPORTANT: make sure you dont include you secret and key when submitting the notebook</span>
-<span class="n">aws_credentials</span> <span class="o">=</span><span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;AKIATB63UHM3FCZLSL5O&quot;</span><span class="p">,</span><span class="s2">&quot;secret&quot;</span><span class="p">:</span> <span class="s2">&quot;HLv8biAoBnwJsNNqYucl+0jrY5+Fv2bUKIHtRLh/&quot;</span><span class="p">}</span> <span class="c1">## dont include you secret and key when submitting the notebook</span>
+<span class="n">aws_credentials</span> <span class="o">=</span><span class="p">{</span><span class="s2">&quot;key&quot;</span><span class="p">:</span> <span class="s2">&quot;KEY&quot;</span><span class="p">,</span><span class="s2">&quot;secret&quot;</span><span class="p">:</span> <span class="s2">&quot;SECRET&quot;</span><span class="p">}</span> <span class="c1">## dont include you secret and key when submitting the notebook</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;s3://mds-s3-student5/combined_model_data_parti.parquet/&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">aws_credentials</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;pyarrow&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="s2">&quot;s3://mds-s3-student5/combined_model_data_parti.parquet/&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">aws_credentials</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14874,7 +14872,7 @@ syd_lon = 151.21</code></pre>
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Do all your coding here</span>
 <span class="n">df_sydney</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;lat_min &lt;= -33.86 and lat_max &gt;= -33.86 and lon_min &lt;= 151.21 and lon_max &gt;= 151.21&quot;</span><span class="p">)</span>
-<span class="n">df_sydney</span> <span class="o">=</span> <span class="n">df_sydney</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lat_min&quot;</span><span class="p">,</span> <span class="s2">&quot;lat_max&quot;</span><span class="p">,</span> <span class="s2">&quot;lon_min&quot;</span><span class="p">,</span> <span class="s2">&quot;lon_max&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">])</span>
+<span class="n">df_sydney</span> <span class="o">=</span> <span class="n">df_sydney</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;lat_min&quot;</span><span class="p">,</span> <span class="s2">&quot;lat_max&quot;</span><span class="p">,</span> <span class="s2">&quot;lon_min&quot;</span><span class="p">,</span> <span class="s2">&quot;lon_max&quot;</span><span class="p">])</span>
 <span class="n">df_sydney</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
@@ -14897,7 +14895,7 @@ syd_lon = 151.21</code></pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>(1150049, 2)</pre>
+<pre>(1150049, 3)</pre>
 </div>
 
 </div>
@@ -14951,6 +14949,7 @@ syd_lon = 151.21</code></pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>time</th>
       <th>rain (mm/day)</th>
       <th>model</th>
     </tr>
@@ -14958,26 +14957,31 @@ syd_lon = 151.21</code></pre>
   <tbody>
     <tr>
       <th>552240</th>
+      <td>1889-01-01 12:00:00</td>
       <td>0.040427</td>
       <td>ACCESS-CM2</td>
     </tr>
     <tr>
       <th>552241</th>
+      <td>1889-01-02 12:00:00</td>
       <td>0.073777</td>
       <td>ACCESS-CM2</td>
     </tr>
     <tr>
       <th>552242</th>
+      <td>1889-01-03 12:00:00</td>
       <td>0.232656</td>
       <td>ACCESS-CM2</td>
     </tr>
     <tr>
       <th>552243</th>
+      <td>1889-01-04 12:00:00</td>
       <td>0.911319</td>
       <td>ACCESS-CM2</td>
     </tr>
     <tr>
       <th>552244</th>
+      <td>1889-01-05 12:00:00</td>
       <td>0.698013</td>
       <td>ACCESS-CM2</td>
     </tr>
@@ -14998,7 +15002,9 @@ syd_lon = 151.21</code></pre>
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_sydney</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">observed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;s3://mds-s3-student5/observed_daily_rainfall_SYD.csv&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">aws_credentials</span><span class="p">)</span>
+<span class="n">observed</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;observed_rainfall&quot;</span>
+<span class="n">observed</span>
 </pre></div>
 
      </div>
@@ -15037,6 +15043,7 @@ syd_lon = 151.21</code></pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>time</th>
       <th>rain (mm/day)</th>
       <th>model</th>
     </tr>
@@ -15044,149 +15051,37 @@ syd_lon = 151.21</code></pre>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.040427</td>
-      <td>ACCESS-CM2</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.073777</td>
-      <td>ACCESS-CM2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>0.232656</td>
-      <td>ACCESS-CM2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.911319</td>
-      <td>ACCESS-CM2</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0.698013</td>
-      <td>ACCESS-CM2</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>1150044</th>
-      <td>17.444923</td>
-      <td>TaiESM1</td>
-    </tr>
-    <tr>
-      <th>1150045</th>
-      <td>1.569647</td>
-      <td>TaiESM1</td>
-    </tr>
-    <tr>
-      <th>1150046</th>
-      <td>1.444630</td>
-      <td>TaiESM1</td>
-    </tr>
-    <tr>
-      <th>1150047</th>
-      <td>0.716019</td>
-      <td>TaiESM1</td>
-    </tr>
-    <tr>
-      <th>1150048</th>
-      <td>3.240185</td>
-      <td>TaiESM1</td>
-    </tr>
-  </tbody>
-</table>
-<p>1150049 rows × 2 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">observed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;s3://mds-s3-student5/observed_daily_rainfall_SYD.csv&quot;</span><span class="p">,</span> <span class="n">storage_options</span><span class="o">=</span><span class="n">aws_credentials</span><span class="p">)</span>
-<span class="n">observed</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
-
-
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>time</th>
-      <th>rain (mm/day)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
       <td>1889-01-01</td>
       <td>0.006612</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>1</th>
       <td>1889-01-02</td>
       <td>0.090422</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>2</th>
       <td>1889-01-03</td>
       <td>1.401452</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>3</th>
       <td>1889-01-04</td>
       <td>14.869798</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>4</th>
       <td>1889-01-05</td>
       <td>0.467628</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
     </tr>
@@ -15194,30 +15089,35 @@ syd_lon = 151.21</code></pre>
       <th>46015</th>
       <td>2014-12-27</td>
       <td>0.037472</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>46016</th>
       <td>2014-12-28</td>
       <td>0.158061</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>46017</th>
       <td>2014-12-29</td>
       <td>0.025719</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>46018</th>
       <td>2014-12-30</td>
       <td>0.729390</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
       <th>46019</th>
       <td>2014-12-31</td>
       <td>0.008076</td>
+      <td>observed_rainfall</td>
     </tr>
   </tbody>
 </table>
-<p>46020 rows × 2 columns</p>
+<p>46020 rows × 3 columns</p>
 </div>
 </div>
 
@@ -15230,11 +15130,10 @@ syd_lon = 151.21</code></pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">length</span> <span class="o">=</span> <span class="n">observed</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">new_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;observed_rainfall&quot;</span><span class="p">:</span> <span class="n">observed</span><span class="p">[</span><span class="s2">&quot;rain (mm/day)&quot;</span><span class="p">]})</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_sydney</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_sydney</span><span class="p">,</span> <span class="n">observed</span><span class="p">])</span>
 </pre></div>
 
      </div>
@@ -15245,17 +15144,12 @@ syd_lon = 151.21</code></pre>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">df_sydney</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span> 
-    <span class="n">new_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">]</span><span class="o">*</span><span class="n">length</span><span class="p">)</span>
-    <span class="n">current_rows</span> <span class="o">=</span> <span class="n">df_sydney</span><span class="p">[</span><span class="n">df_sydney</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">model</span><span class="p">][</span><span class="s2">&quot;rain (mm/day)&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_rows</span><span class="p">)):</span>
-        <span class="n">new_row</span><span class="p">[</span><span class="n">value</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_rows</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">value</span><span class="p">]</span>
-    <span class="n">new_df</span><span class="p">[</span><span class="n">model</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_row</span>
-    
-<span class="n">new_df</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_sydney</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_sydney</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+<span class="n">df_sydney</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_sydney</span>
 </pre></div>
 
      </div>
@@ -15271,7 +15165,7 @@ syd_lon = 151.21</code></pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[13]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 
 
 
@@ -15294,297 +15188,74 @@ syd_lon = 151.21</code></pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>observed_rainfall</th>
-      <th>ACCESS-CM2</th>
-      <th>ACCESS-ESM1-5</th>
-      <th>AWI-ESM-1-1-LR</th>
-      <th>BCC-CSM2-MR</th>
-      <th>BCC-ESM1</th>
-      <th>CMCC-CM2-HR4</th>
-      <th>CMCC-CM2-SR5</th>
-      <th>CMCC-ESM2</th>
-      <th>CanESM5</th>
-      <th>...</th>
-      <th>MIROC6</th>
-      <th>MPI-ESM-1-2-HAM</th>
-      <th>MPI-ESM1-2-HR</th>
-      <th>MPI-ESM1-2-LR</th>
-      <th>MRI-ESM2-0</th>
-      <th>NESM3</th>
-      <th>NorESM2-LM</th>
-      <th>NorESM2-MM</th>
-      <th>SAM0-UNICON</th>
-      <th>TaiESM1</th>
+      <th>rain (mm/day)</th>
+      <th>model</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>0.006612</td>
+      <th>1889-01-01</th>
       <td>0.040427</td>
-      <td>1.814552</td>
-      <td>3.557934e+01</td>
-      <td>4.268112e+00</td>
-      <td>1.107466e-03</td>
-      <td>11.410537</td>
-      <td>3.322009e-08</td>
-      <td>2.668800</td>
-      <td>1.321215</td>
-      <td>...</td>
-      <td>6.480307e-01</td>
-      <td>4.244226e-13</td>
-      <td>1.390174e-13</td>
-      <td>6.537884e-05</td>
-      <td>3.445495e-06</td>
-      <td>1.576096e+01</td>
-      <td>4.759651e-05</td>
-      <td>2.451075</td>
-      <td>0.221324</td>
-      <td>2.257933</td>
+      <td>ACCESS-CM2</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>0.090422</td>
+      <th>1889-01-02</th>
       <td>0.073777</td>
-      <td>0.303965</td>
-      <td>4.596520e+00</td>
-      <td>1.190141e+00</td>
-      <td>1.015323e-04</td>
-      <td>4.014984</td>
-      <td>1.312700e+00</td>
-      <td>0.946211</td>
-      <td>2.788724</td>
-      <td>...</td>
-      <td>1.099883e+00</td>
-      <td>4.409552e+00</td>
-      <td>1.222283e-01</td>
-      <td>1.049131e-13</td>
-      <td>4.791993e-09</td>
-      <td>3.675510e-01</td>
-      <td>4.350863e-01</td>
-      <td>0.477231</td>
-      <td>3.757179</td>
-      <td>2.287381</td>
+      <td>ACCESS-CM2</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>1.401452</td>
+      <th>1889-01-03</th>
       <td>0.232656</td>
-      <td>0.019976</td>
-      <td>5.927467e+00</td>
-      <td>1.003845e-09</td>
-      <td>1.760345e-05</td>
-      <td>9.660565</td>
-      <td>9.103720e+00</td>
-      <td>0.431999</td>
-      <td>0.003672</td>
-      <td>...</td>
-      <td>3.931751e+00</td>
-      <td>2.269300e-01</td>
-      <td>3.762301e-01</td>
-      <td>9.758706e-14</td>
-      <td>6.912302e-01</td>
-      <td>1.562869e-01</td>
-      <td>9.561101e+00</td>
-      <td>0.023083</td>
-      <td>0.253357</td>
-      <td>1.199909</td>
+      <td>ACCESS-CM2</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>14.869798</td>
+      <th>1889-01-04</th>
       <td>0.911319</td>
-      <td>13.623777</td>
-      <td>8.029624e+00</td>
-      <td>8.225225e-02</td>
-      <td>1.808932e-01</td>
-      <td>3.951528</td>
-      <td>1.317160e+01</td>
-      <td>0.368693</td>
-      <td>0.013578</td>
-      <td>...</td>
-      <td>6.273648e-01</td>
-      <td>2.344586e-02</td>
-      <td>4.214019e-01</td>
-      <td>7.060915e-03</td>
-      <td>3.835721e-02</td>
-      <td>2.472226e-07</td>
-      <td>5.301038e-01</td>
-      <td>0.002699</td>
-      <td>2.185454</td>
-      <td>2.106737</td>
+      <td>ACCESS-CM2</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>0.467628</td>
+      <th>1889-01-05</th>
       <td>0.698013</td>
-      <td>0.021048</td>
-      <td>2.132686e+00</td>
-      <td>2.496841e+00</td>
-      <td>4.708019e-09</td>
-      <td>2.766362</td>
-      <td>1.822940e+01</td>
-      <td>0.339267</td>
-      <td>0.002468</td>
-      <td>...</td>
-      <td>1.977652e-02</td>
-      <td>4.270161e-13</td>
-      <td>1.879692e-01</td>
-      <td>4.504985e+00</td>
-      <td>3.506923e-07</td>
-      <td>1.949792e-13</td>
-      <td>1.460928e-10</td>
-      <td>0.001026</td>
-      <td>2.766507</td>
-      <td>1.763335</td>
+      <td>ACCESS-CM2</td>
     </tr>
     <tr>
       <th>...</th>
       <td>...</td>
       <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
     </tr>
     <tr>
-      <th>46015</th>
+      <th>2014-12-27</th>
       <td>0.037472</td>
-      <td>0.033748</td>
-      <td>0.123476</td>
-      <td>1.451179e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>2.916075e-11</td>
-      <td>4.726998e-13</td>
-      <td>1.326889e-01</td>
-      <td>1.827857e+00</td>
-      <td>6.912632e-03</td>
-      <td>2.171327e-03</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
-      <th>46016</th>
+      <th>2014-12-28</th>
       <td>0.158061</td>
-      <td>0.094198</td>
-      <td>2.645496</td>
-      <td>4.249335e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>9.565743e-01</td>
-      <td>4.609420e-13</td>
-      <td>1.644482e+00</td>
-      <td>7.242920e-01</td>
-      <td>2.836752e-03</td>
-      <td>1.344768e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
-      <th>46017</th>
+      <th>2014-12-29</th>
       <td>0.025719</td>
-      <td>0.005964</td>
-      <td>3.041667</td>
-      <td>2.898325e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>7.098663e-01</td>
-      <td>2.016156e+01</td>
-      <td>1.506439e+00</td>
-      <td>1.049481e-01</td>
-      <td>8.137182e+00</td>
-      <td>2.547820e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
-      <th>46018</th>
+      <th>2014-12-30</th>
       <td>0.729390</td>
-      <td>0.000028</td>
-      <td>1.131412</td>
-      <td>2.516381e-01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>3.274740e-01</td>
-      <td>9.420543e+00</td>
-      <td>6.242895e+00</td>
-      <td>1.245115e-01</td>
-      <td>9.305263e-03</td>
-      <td>4.192948e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>observed_rainfall</td>
     </tr>
     <tr>
-      <th>46019</th>
+      <th>2014-12-31</th>
       <td>0.008076</td>
-      <td>0.532747</td>
-      <td>2.370896</td>
-      <td>1.047835e-13</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>...</td>
-      <td>4.227210e-02</td>
-      <td>1.031899e+01</td>
-      <td>4.765813e+01</td>
-      <td>3.274323e-01</td>
-      <td>6.854985e-11</td>
-      <td>2.067847e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>observed_rainfall</td>
     </tr>
   </tbody>
 </table>
-<p>46020 rows × 26 columns</p>
+<p>1196069 rows × 2 columns</p>
 </div>
 </div>
 
@@ -15592,6 +15263,20 @@ syd_lon = 151.21</code></pre>
 
 </div>
 
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[13]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">new_df</span> <span class="o">=</span> <span class="n">df_sydney</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="s2">&quot;rain (mm/day)&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -15699,7 +15384,6 @@ syd_lon = 151.21</code></pre>
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>observed_rainfall</th>
       <th>ACCESS-CM2</th>
       <th>ACCESS-ESM1-5</th>
       <th>AWI-ESM-1-1-LR</th>
@@ -15709,8 +15393,8 @@ syd_lon = 151.21</code></pre>
       <th>CMCC-CM2-SR5</th>
       <th>CMCC-ESM2</th>
       <th>CanESM5</th>
+      <th>EC-Earth3-Veg-LR</th>
       <th>...</th>
-      <th>MIROC6</th>
       <th>MPI-ESM-1-2-HAM</th>
       <th>MPI-ESM1-2-HR</th>
       <th>MPI-ESM1-2-LR</th>
@@ -15720,23 +15404,23 @@ syd_lon = 151.21</code></pre>
       <th>NorESM2-MM</th>
       <th>SAM0-UNICON</th>
       <th>TaiESM1</th>
+      <th>observed_rainfall</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.006612</td>
       <td>0.040427</td>
       <td>1.814552</td>
       <td>3.557934e+01</td>
       <td>4.268112e+00</td>
       <td>1.107466e-03</td>
-      <td>11.410537</td>
+      <td>1.141054e+01</td>
       <td>3.322009e-08</td>
       <td>2.668800</td>
       <td>1.321215</td>
+      <td>1.515293</td>
       <td>...</td>
-      <td>6.480307e-01</td>
       <td>4.244226e-13</td>
       <td>1.390174e-13</td>
       <td>6.537884e-05</td>
@@ -15746,21 +15430,21 @@ syd_lon = 151.21</code></pre>
       <td>2.451075</td>
       <td>0.221324</td>
       <td>2.257933</td>
+      <td>0.006612</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.090422</td>
       <td>0.073777</td>
       <td>0.303965</td>
       <td>4.596520e+00</td>
       <td>1.190141e+00</td>
       <td>1.015323e-04</td>
-      <td>4.014984</td>
+      <td>4.014984e+00</td>
       <td>1.312700e+00</td>
       <td>0.946211</td>
       <td>2.788724</td>
+      <td>4.771375</td>
       <td>...</td>
-      <td>1.099883e+00</td>
       <td>4.409552e+00</td>
       <td>1.222283e-01</td>
       <td>1.049131e-13</td>
@@ -15770,21 +15454,21 @@ syd_lon = 151.21</code></pre>
       <td>0.477231</td>
       <td>3.757179</td>
       <td>2.287381</td>
+      <td>0.090422</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>1.401452</td>
       <td>0.232656</td>
       <td>0.019976</td>
       <td>5.927467e+00</td>
       <td>1.003845e-09</td>
       <td>1.760345e-05</td>
-      <td>9.660565</td>
+      <td>9.660565e+00</td>
       <td>9.103720e+00</td>
       <td>0.431999</td>
       <td>0.003672</td>
+      <td>4.233980</td>
       <td>...</td>
-      <td>3.931751e+00</td>
       <td>2.269300e-01</td>
       <td>3.762301e-01</td>
       <td>9.758706e-14</td>
@@ -15794,21 +15478,21 @@ syd_lon = 151.21</code></pre>
       <td>0.023083</td>
       <td>0.253357</td>
       <td>1.199909</td>
+      <td>1.401452</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>14.869798</td>
       <td>0.911319</td>
       <td>13.623777</td>
       <td>8.029624e+00</td>
       <td>8.225225e-02</td>
       <td>1.808932e-01</td>
-      <td>3.951528</td>
+      <td>3.951528e+00</td>
       <td>1.317160e+01</td>
       <td>0.368693</td>
       <td>0.013578</td>
+      <td>15.252495</td>
       <td>...</td>
-      <td>6.273648e-01</td>
       <td>2.344586e-02</td>
       <td>4.214019e-01</td>
       <td>7.060915e-03</td>
@@ -15818,21 +15502,21 @@ syd_lon = 151.21</code></pre>
       <td>0.002699</td>
       <td>2.185454</td>
       <td>2.106737</td>
+      <td>14.869798</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.467628</td>
       <td>0.698013</td>
       <td>0.021048</td>
       <td>2.132686e+00</td>
       <td>2.496841e+00</td>
       <td>4.708019e-09</td>
-      <td>2.766362</td>
+      <td>2.766362e+00</td>
       <td>1.822940e+01</td>
       <td>0.339267</td>
       <td>0.002468</td>
+      <td>11.920356</td>
       <td>...</td>
-      <td>1.977652e-02</td>
       <td>4.270161e-13</td>
       <td>1.879692e-01</td>
       <td>4.504985e+00</td>
@@ -15842,6 +15526,7 @@ syd_lon = 151.21</code></pre>
       <td>0.001026</td>
       <td>2.766507</td>
       <td>1.763335</td>
+      <td>0.467628</td>
     </tr>
     <tr>
       <th>...</th>
@@ -15869,123 +15554,123 @@ syd_lon = 151.21</code></pre>
     </tr>
     <tr>
       <th>46015</th>
-      <td>0.037472</td>
       <td>0.033748</td>
       <td>0.123476</td>
       <td>1.451179e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>3.852845e+01</td>
+      <td>2.061717e-03</td>
+      <td>8.179260e-09</td>
+      <td>1.171263e-02</td>
+      <td>0.090786</td>
+      <td>59.895053</td>
+      <td>5.071783</td>
       <td>...</td>
-      <td>2.916075e-11</td>
       <td>4.726998e-13</td>
       <td>1.326889e-01</td>
       <td>1.827857e+00</td>
       <td>6.912632e-03</td>
       <td>2.171327e-03</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.620489e+00</td>
+      <td>2.084252</td>
+      <td>0.868046</td>
+      <td>17.444923</td>
+      <td>0.037472</td>
     </tr>
     <tr>
       <th>46016</th>
-      <td>0.158061</td>
       <td>0.094198</td>
       <td>2.645496</td>
       <td>4.249335e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>5.833801e-01</td>
+      <td>5.939502e-09</td>
+      <td>8.146937e-01</td>
+      <td>4.938899e-01</td>
+      <td>0.000000</td>
+      <td>0.512632</td>
+      <td>1.578188</td>
       <td>...</td>
-      <td>9.565743e-01</td>
       <td>4.609420e-13</td>
       <td>1.644482e+00</td>
       <td>7.242920e-01</td>
       <td>2.836752e-03</td>
       <td>1.344768e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2.391159e+00</td>
+      <td>1.644527</td>
+      <td>0.782258</td>
+      <td>1.569647</td>
+      <td>0.158061</td>
     </tr>
     <tr>
       <th>46017</th>
-      <td>0.025719</td>
       <td>0.005964</td>
       <td>3.041667</td>
       <td>2.898325e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>9.359547e-02</td>
+      <td>2.000051e-08</td>
+      <td>2.532205e-01</td>
+      <td>1.306046e+00</td>
+      <td>0.000002</td>
+      <td>37.169669</td>
+      <td>1.565885</td>
       <td>...</td>
-      <td>7.098663e-01</td>
       <td>2.016156e+01</td>
       <td>1.506439e+00</td>
       <td>1.049481e-01</td>
       <td>8.137182e+00</td>
       <td>2.547820e+01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.987695e-12</td>
+      <td>0.205036</td>
+      <td>2.140723</td>
+      <td>1.444630</td>
+      <td>0.025719</td>
     </tr>
     <tr>
       <th>46018</th>
-      <td>0.729390</td>
       <td>0.000028</td>
       <td>1.131412</td>
       <td>2.516381e-01</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1.715028e-01</td>
+      <td>7.191735e-05</td>
+      <td>8.169252e-02</td>
+      <td>1.722262e-01</td>
+      <td>0.788577</td>
+      <td>7.361246</td>
+      <td>0.025749</td>
       <td>...</td>
-      <td>3.274740e-01</td>
       <td>9.420543e+00</td>
       <td>6.242895e+00</td>
       <td>1.245115e-01</td>
       <td>9.305263e-03</td>
       <td>4.192948e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2.150346e+00</td>
+      <td>0.000017</td>
+      <td>29.714692</td>
+      <td>0.716019</td>
+      <td>0.729390</td>
     </tr>
     <tr>
       <th>46019</th>
-      <td>0.008076</td>
       <td>0.532747</td>
       <td>2.370896</td>
       <td>1.047835e-13</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.437736e+00</td>
+      <td>2.863683e-01</td>
+      <td>6.343592e+00</td>
+      <td>6.368303e-01</td>
+      <td>0.442130</td>
+      <td>0.306608</td>
+      <td>0.106525</td>
       <td>...</td>
-      <td>4.227210e-02</td>
       <td>1.031899e+01</td>
       <td>4.765813e+01</td>
       <td>3.274323e-01</td>
       <td>6.854985e-11</td>
       <td>2.067847e+00</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2.349716e+01</td>
+      <td>0.035319</td>
+      <td>59.724062</td>
+      <td>3.240185</td>
+      <td>0.008076</td>
     </tr>
   </tbody>
 </table>
