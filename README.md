@@ -19,9 +19,11 @@ Download the data and perform simple EDA
 Transfer the data into cloud and set up the infrastructure for machine learning model.
 
 [Milestone 2 Notebook](https://github.com/UBC-MDS/DSCI525_Group14/blob/main/notebooks/milestone_2.ipynb)
+
 ## Milestone 3
 Build distributed infrastructure (Spark) in cloud and perform a Machine Learning model.
 
+[Milestone 3 Notebooks](https://github.com/UBC-MDS/DSCI525_Group14/blob/main/notebooks/milestone_3)
 
 ## Milestone 4
 TBD
