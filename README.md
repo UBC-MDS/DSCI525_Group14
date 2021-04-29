@@ -26,7 +26,8 @@ Build distributed infrastructure (Spark) in cloud and perform a Machine Learning
 [Milestone 3 Notebooks](https://github.com/UBC-MDS/DSCI525_Group14/blob/main/notebooks/milestone_3)
 
 ## Milestone 4
-TBD
+Deploy ML model using flask
+[Milestone 4 Notebooks](https://github.com/UBC-MDS/DSCI525_Group14/blob/main/notebooks/milestone_4/Milestone4.ipynb)
 
 ## Team Members
 - Chuck
